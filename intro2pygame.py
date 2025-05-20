@@ -1,21 +1,15 @@
 import pygame
 import time
 
-
+#starter code 
 pygame.init() # initialize a pygame class
-
-
-
-
 #set our screen size
 width, height = 400, 400
 screen  = pygame.display.set_mode((width, height))
 
 
 
-
 backround_colour = 255, 0, 0 #set backround color
-
 
 
 
@@ -39,9 +33,7 @@ while running:
 
 
 
-
     screen.fill(backround_colour) # makes screen the background colour
-
 
 
 
@@ -62,8 +54,6 @@ while running:
 
     pygame.display.flip() #refreshes the screen
     time.sleep(10 / 1000) #Slowed down image(duck)
-
-
 
 
 pygame.quit() #quits pygame properly
