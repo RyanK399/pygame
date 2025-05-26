@@ -1,67 +1,60 @@
-
 import pygame
 import time
 
-#define colors
+# colors
 black = 0, 0, 0
 green = 0, 255, 0
 red = 255, 0, 0
 
+pygame.init()
+width, height = 640, 480
+pygame.display.set_caption("Smnake")
+screen = pygame.display.set_mode((width, height))
 
-#starter code 
-pygame.init() # initialize a pygame class
-#set our screen size
-width, height = 720, 480
-pygame.display.set_caption ('Snake')
-screen  = pygame.display.set_mode((width, height))
-
-#snake information'
-snake_position = [360, 240]
-snake_speed = 10
-snake_direction = 'RIGHT'
-snake_body = [[360,240], [350,240], [340,240],[330,240]]
-
+# snake info
+snake_pos = [320, 240]
+snake_spd = 10
+snake_dir = 'RIGHT'
+snake_body = [[320, 240],
+              [304, 240],
+              [288, 240],
+              [272, 240]
+              ]
 
 running = True
-while running:
-   screen.fill(black)
-   for event in pygame.event.get():
-        if event.type == pygame.QUIT: #close the game
+while running: 
+    screen.fill(black)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
-            if event.type == pygame.K_UP: 
-                 snake_direction = 'UP'
-            if event.key == pygame.K_DOWN:
-                 snake_direction = 'DOWN'
-            if event.key == pygame.K_LEFT:
-                 snake_direction = 'LEFT'
-            if event.key == pygame.K_RIGHT:
-                 snake_direction = 'RIGHT'
-     
-     
-     
-#Set the snake on the screen
-for pos in snake_body:
-    pygame.draw.rect(screen, green, pygame.Rect(pos[0],pos[1],10,10))
+            if event.key == pygame.K_UP and snake_dir != 'DOWN':
+                snake_dir = 'UP'
+            if event.key == pygame.K_DOWN and snake_dir != 'UP':
+                snake_dir = 'DOWN'
+            if event.key == pygame.K_LEFT and snake_dir != 'RIGHT':
+                snake_dir = 'LEFT'
+            if event.key == pygame.K_RIGHT and snake_dir != 'LEFT':
+                snake_dir = 'RIGHT'
 
-if snake_direction =='UP':
-     snake_position[1] -= snake_speed
-if snake_direction =='DOWN':
-     snake_position[1]+= snake_speed
-if snake_direction =='RIGHT':
-     snake_position[0] += snake_speed
-if snake_direction =='LEFT':
-     snake_position[0] -= snake_speed
+    for pos in snake_body:
+        pygame.draw.rect(screen, green, pygame.Rect(pos[0], pos[1], 16, 16))
+    
+    if snake_dir == 'UP':
+        snake_pos[1] -= snake_spd
+    if snake_dir == 'DOWN':
+        snake_pos[1] += snake_spd
+    if snake_dir == 'RIGHT':
+        snake_pos[0] += snake_spd
+    if snake_dir == 'LEFT':
+        snake_pos[0] -= snake_spd
 
-snake_body.insert(0,list(snake_position))
-snake_body.pop
+    snake_body.insert(0, list(snake_pos))
+    snake_body.pop()
 
+    pygame.display.flip()
 
-pygame.display.flip() 
+    clock = pygame.time.Clock()
+    clock.tick(snake_spd)
 
-clock = pygame.time.Clock()
-clock.tick(60)
-
-
-pygame.quit() #quits pygame properly
-
+pygame.quit()
